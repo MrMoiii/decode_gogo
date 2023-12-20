@@ -41,12 +41,17 @@ def decode_encoded_string(encoded_str):
         '--...': '7', '---..': '8', '----.': '9',
         '/': ' ', ' ': ' '
     }
-    morse_parts = encoded_str.split('/')
+    morse_parts = encoded_str.split(' ')
     try:
         decoded_str = ''.join(morse_code[part] for part in morse_parts)
         return decoded_str.lower(),"morse"
     except KeyError:
-        pass
+        morse_parts = encoded_str.split('/')
+        try:
+            decoded_str = ''.join(morse_code[part] for part in morse_parts)
+            return decoded_str.lower(),"morse"
+        except KeyError:
+            pass
     
     try:
         hex_bytes = bytes.fromhex(encoded_str)
